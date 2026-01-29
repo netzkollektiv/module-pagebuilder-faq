@@ -77,7 +77,7 @@
             <settings>
                 <dataScope>faq_question</dataScope>
                 <dataType>text</dataType>
-                <label translate="false">Question</label>
+                <label translate="true">Question</label>
             </settings>
         </field>
 
