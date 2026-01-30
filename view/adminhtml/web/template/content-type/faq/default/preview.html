@@ -4,7 +4,7 @@
      class="pagebuilder-content-type"
      css="data.main.css"
      event="{ mouseover: onMouseOver, mouseout: onMouseOut }, mouseoverBubble: false">
-    <render args="getOptions().template" ></render>
+    <render args="getOptions().template"></render>
     <b data-bind="i18n: 'Question'"></b>
     <div class="faq-question"
          attr="data.question.attributes"
@@ -13,11 +13,19 @@
          data-bind="liveEdit: { field: 'faq_question', placeholder: $t('Enter a question') }">
     </div>
     <b data-bind="i18n: 'Answer'"></b>
-    <div class="faq-answer"
-         attr="data.answer.attributes"
-         ko-style="data.answer.style"
-         css="data.answer.css"
-         data-bind="liveEdit: { field: 'faq_answer', placeholder: $t('Enter an answer') }">
+    <div if="isWysiwygSupported()" class="faq-answer-wysiwyg-wrapper">
+        <div class="faq-answer inline-wysiwyg"
+             attr="data.answer.attributes"
+             ko-style="data.answer.style"
+             css="data.answer.css"
+             afterRender="afterRenderWysiwyg"
+             contenteditable="true"
+             event="mousedown: handleMouseDown, click: activateEditor, dblclick: handleDoubleClick">
+        </div>
+        <div class="faq-answer-toolbar-container"></div>
+        <div class="placeholder-text" ifnot="data.answer.html" ko-style="getPlaceholderStyle()" translate="'Edit Answer'"></div>
     </div>
+
+    <div ifnot="isWysiwygSupported()" class="faq-answer" attr="data.answer.attributes" ko-style="data.answer.style" css="data.answer.css" data-bind="html: data.answer.html"></div>
     <br>
 </div>
